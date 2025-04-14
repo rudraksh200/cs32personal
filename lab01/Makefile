@@ -4,11 +4,11 @@ CXX=g++
 # We have -Wno-unused-parameter so that the compiler
 # doesn't complain too much about our stubs.
 
-CXXFLAGS = -Wall -Wextra -Wno-unused-parameter -Wno-unused-private-field
+#CXXFLAGS = -Wall -Wextra -Wno-unused-parameter -Wno-unused-private-field
 
 # TODO: Change to this before final submission:
 
-# CXXFLAGS = -Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror
 
 BINARIES=testStudent1 testStudent2 testStudent3
 

@@ -1,4 +1,3 @@
-// Edited by: Rudraksh Gupta
 // minimal Hello World! program for testing Makefiles
 
 #include <iostream>

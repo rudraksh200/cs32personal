@@ -4,41 +4,29 @@
 using std::cout;
 using std::endl;
 
-std::string convertLineNumber(int lineNumber) {
-  std::string retVal="";
-  if (lineNumber > 0) 
-    retVal += " line: " + std::to_string(lineNumber);
-  return retVal;
-}
-
 void assertEquals(const char * const expected, 
 		  const char * const actual, 
-		  std::string message,
-		  int lineNumber) {
-  std::string line = convertLineNumber(lineNumber);
+		  std::string message) {
   if ( !strcmp(expected,actual) ) {  // if they are equal
-    cout << "PASSED: " << message << line <<  endl;;
+    cout << "PASSED: " << message << endl;;
   } else {
-    cout << "   FAILED: " << message << line << endl 
+    cout << "   FAILED: " << message << endl 
 	 << "     Expected: " << expected << " Actual: " << actual << endl; 
   }
 }
 
 void assertEquals(const char * const expected, 
 		  std::string actual, 
-		  std::string message,
-		  int lineNumber) {
-  assertEquals(std::string(expected),actual,message,lineNumber);
+		  std::string message) {
+  assertEquals(std::string(expected),actual,message);
 }
 
 void assertTrue(bool expression,
-		std::string message,
-		int lineNumber) {
-  std::string line = convertLineNumber(lineNumber);
+		  std::string message) {
   if (expression) {
-    cout << "PASSED: " << message << line << endl;;
+    cout << "PASSED: " << message << endl;;
   } else {
-    cout << "   FAILED: " << message << line << endl 
+    cout << "   FAILED: " << message << endl 
 	 << "     Expected true, but was false " << endl;
   }
 }

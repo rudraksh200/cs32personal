@@ -50,6 +50,7 @@ int WordCount::getWordCount(std::string word) const {
 	
 int WordCount::incrWordCount(std::string word) {
 	std::string vWord = makeValidWord(word);
+	if(word.size() == 0) return 0;
 	size_t wHash = hash(vWord);
 	for(size_t j = 0; j < table[wHash].size(); j++){
 		if(vWord == table[wHash][j].first){

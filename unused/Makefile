@@ -1,30 +1,36 @@
-# Makefile
-
 CXX=clang++
+# CXX=g++
 
-CXXFLAGS = -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-unused-private-field
+# We have -Wno-unused-parameter so that the compiler
+# doesn't complain too much about our stubs.
 
-BINARIES=testIceCreamOrder1 testIceCreamOrder2 testIceCreamOrder3 testIceCreamOrder4
+CXXFLAGS = -std=c++17 -Wall -Wextra -Wno-unused-parameter -Wno-unused-private-field
+
+# Change to this before final submission:
+
+#CXXFLAGS = -std=c++17 -Wall -Wextra -Werror
+
+BINARIES=testStudent testRoster1 testRoster2 testRoster3
 
 all: ${BINARIES}
 
-testIceCreamOrder1: testIceCreamOrder1.o IceCreamOrder.o IceCreamItem.o CustomItem.o PreMadeItem.o tddFuncs.o
+testStudent: testStudent.o Student.o tddFuncs.o
 	${CXX} $^ -o $@
 
-testIceCreamOrder2: testIceCreamOrder2.o IceCreamOrder.o IceCreamItem.o CustomItem.o PreMadeItem.o tddFuncs.o
+testRoster1: testRoster1.o Roster.o Student.o tddFuncs.o
 	${CXX} $^ -o $@
 
-testIceCreamOrder3: testIceCreamOrder3.o IceCreamOrder.o IceCreamItem.o CustomItem.o PreMadeItem.o tddFuncs.o
+testRoster2: testRoster2.o Roster.o Student.o tddFuncs.o
 	${CXX} $^ -o $@
 
-testIceCreamOrder4: testIceCreamOrder4.o IceCreamOrder.o IceCreamItem.o CustomItem.o PreMadeItem.o tddFuncs.o
+testRoster3: testRoster3.o Roster.o Student.o tddFuncs.o
 	${CXX} $^ -o $@
 
 tests: ${BINARIES}
-	./testIceCreamOrder1
-	./testIceCreamOrder2
-	./testIceCreamOrder3
-	./testIceCreamOrder4
+	./testStudent
+	./testRoster1
+	./testRoster2
+	./testRoster3
 
 clean:
 	/bin/rm -f ${BINARIES} *.o

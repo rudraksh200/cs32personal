@@ -31,9 +31,7 @@ int WordCount::getNumUniqueWords() const {
 	int count = 0;
 	for(size_t i = 0; i < CAPACITY; i++){
 		for(size_t j = 0; j < table[i].size(); j++){
-			if(table[i][j].second != 0){
 				count++;
-			}
 		}
 	}
 	return count;
@@ -67,8 +65,12 @@ int WordCount::decrWordCount(std::string word) {
 	std::string vWord = makeValidWord(word);
 	size_t wHash = hash(vWord);
 	for(size_t j = 0; j < table[wHash].size(); j++){
-		if(vWord == table[wHash][j].first && table[wHash][j].second != 0){
+		if(vWord == table[wHash][j].first){
 			table[wHash][j].second--;
+			if(table[wHash][j].second == 0){
+				table[wHash].erase(table[wHash].begin() + j);
+				return 0;
+			}
 			return table[wHash][j].second;
 		}
 	}

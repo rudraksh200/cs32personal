@@ -17,8 +17,13 @@ int main(){
     cout << "Rechecking total words after decrement: " << table.getTotalWords() << endl;
     cout << "Rechecking get num unique words: " << table.getNumUniqueWords() << endl;
     cout << "Rechecking wordcount for hi: " << table.getWordCount("hi") << endl;
-    cout << "Checking makeValidWord for !@##!: " << table.makeValidWord("!@##! ") << endl;
-    cout << "Checking makeValidWord for !@##!: " << table.makeValidWord("foo-bar-") << endl;
+    cout << "Checking makeValidWord for 'word-main- " << table.makeValidWord("'word-main-") << endl;
+    cout << "Incrementing word count for 'word-main- " << table.incrWordCount("'word-main-") << endl;
+    cout << "Incrementing word count for ''w--or-d##main- " << table.incrWordCount("'w--or-d##main-") << endl;
+    cout << "Rechecking total words after addition: " << table.getTotalWords() << endl;
+    cout << "Rechecking get num unique words: " << table.getNumUniqueWords() << endl;
+
+
 
     return 0;
 }

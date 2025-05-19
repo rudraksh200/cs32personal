@@ -19,8 +19,8 @@ size_t WordCount::hash(std::string word) const {
 
 int WordCount::getTotalWords() const {
 	int sum = 0;
-	for(int i = 0; i < CAPACITY; i++){
-		for(int j = 0; j < table[i].size(); j++){
+	for(size_t i = 0; i < CAPACITY; i++){
+		for(size_t j = 0; j < table[i].size(); j++){
 			sum += table[i][j].second;
 		}
 	}
@@ -29,8 +29,8 @@ int WordCount::getTotalWords() const {
 
 int WordCount::getNumUniqueWords() const {
 	int count = 0;
-	for(int i = 0; i < CAPACITY; i++){
-		for(int j = 0; j < table[i].size(); j++){
+	for(size_t i = 0; i < CAPACITY; i++){
+		for(size_t j = 0; j < table[i].size(); j++){
 			if(table[i][j].second != 0){
 				count++;
 			}
@@ -42,7 +42,7 @@ int WordCount::getNumUniqueWords() const {
 int WordCount::getWordCount(std::string word) const {
 	std::string vWord = makeValidWord(word);
 	size_t wHash = hash(vWord);
-	for(int j = 0; j < table[wHash].size(); j++){
+	for(size_t j = 0; j < table[wHash].size(); j++){
 		if(vWord == table[wHash][j].first){
 			return table[wHash][j].second;
 		}
@@ -53,7 +53,7 @@ int WordCount::getWordCount(std::string word) const {
 int WordCount::incrWordCount(std::string word) {
 	std::string vWord = makeValidWord(word);
 	size_t wHash = hash(vWord);
-	for(int j = 0; j < table[wHash].size(); j++){
+	for(size_t j = 0; j < table[wHash].size(); j++){
 		if(vWord == table[wHash][j].first){
 			table[wHash][j].second++;
 			return table[wHash][j].second;
@@ -66,7 +66,7 @@ int WordCount::incrWordCount(std::string word) {
 int WordCount::decrWordCount(std::string word) {
 	std::string vWord = makeValidWord(word);
 	size_t wHash = hash(vWord);
-	for(int j = 0; j < table[wHash].size(); j++){
+	for(size_t j = 0; j < table[wHash].size(); j++){
 		if(vWord == table[wHash][j].first && table[wHash][j].second != 0){
 			table[wHash][j].second--;
 			return table[wHash][j].second;
@@ -84,7 +84,7 @@ bool WordCount::isWordChar(char c) {
 
 std::string WordCount::makeValidWord(std::string word) {
 	std::string vWord = word;
-	for(int i = 0; i < vWord.length(); i++){
+	for(size_t i = 0; i < vWord.length(); i++){
 		if(isWordChar(vWord[i])){
 			vWord[i] = tolower(vWord[i]);
 		}

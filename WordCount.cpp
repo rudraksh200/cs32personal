@@ -88,20 +88,20 @@ bool WordCount::isWordChar(char c) {
 std::string WordCount::makeValidWord(std::string word) {
 	std::string vWord = word;
 	for(size_t i = 0; i < vWord.length(); i++){
-		if(i == 0 || i == vWord.length()-1){
-			if(isWordChar(vWord[i])){
-				vWord[i] = tolower(vWord[i]);
-			} else{
-				vWord.erase(i,1);
-				i--;
-			}
-		} else if(isWordChar(vWord[i]) || vWord[i] == '-' || vWord[i] == '\''){
+		if(isWordChar(vWord[i]) || vWord[i] == '-' || vWord[i] == '\''){
 			vWord[i] = tolower(vWord[i]);
 		}
 		else{
 			vWord.erase(i,1);
 			i--;
 		}
+	}
+	while (vWord.length() > 0 && (vWord[0] == '\'' || vWord[0] == '-')) {
+		vWord.erase(0, 1);
+	}
+
+	while (vWord.length() > 0 && (vWord.back() == '\'' || vWord.back() == '-')) {
+		vWord.pop_back();
 	}
 	return vWord;
 }

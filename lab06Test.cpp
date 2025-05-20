@@ -20,6 +20,7 @@ int main(){
     cout << "Checking makeValidWord for ''''''word-main-: " << table.makeValidWord("''''''word-main-") << endl;
     cout << "Checking makeValidWord count for ''''''w--or-d##main------: " << table.makeValidWord("''''''w--or-d##main------") << endl;
     cout << "Checking makeValidWord count for ''-----: " << table.makeValidWord("''-----") << endl;
+    cout << table.makeValidWord("can't") << endl << table.makeValidWord("good-hearted") << endl << table.makeValidWord("12mOnkEYs-$") << endl << table.makeValidWord("Pa55ive") << endl;
 
     return 0;
 }

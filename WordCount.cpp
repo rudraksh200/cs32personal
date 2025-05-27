@@ -118,7 +118,7 @@ void WordCount::dumpWordsSortedByWord(std::ostream &out) const {
 			return a.first > b.first;
 	});
 	
-	for(int i = 0; i < allWords.size(); i++){
+	for(size_t i = 0; i < allWords.size(); i++){
 		out << allWords[i].first << "," << allWords[i].second << "\n";
 	}
 }
@@ -137,13 +137,13 @@ void WordCount::dumpWordsSortedByOccurence(std::ostream &out) const {
 			return a.second < b.second;
 	});
 	
-	for(int i = 0; i < allWords.size(); i++){
+	for(size_t i = 0; i < allWords.size(); i++){
 		out << allWords[i].first << "," << allWords[i].second << "\n";
 	}
 }
 
 void WordCount::addAllWords(std::string text) {
-	int i = 0;
+	size_t i = 0;
 	std::string word = "";
 	while(i < text.length()){
 		if(text[i] == ' ' || text[i] == '\n' || text[i] == '\t'){

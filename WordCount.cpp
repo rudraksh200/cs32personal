@@ -1,7 +1,6 @@
 // WordCount.cpp
 
 #include "WordCount.h"
-#include <cctype>
 
 using namespace std;
 
@@ -78,6 +77,7 @@ int WordCount::decrWordCount(std::string word) {
 	return -1;
 }
 
+
 bool WordCount::isWordChar(char c) {
 	if(isalpha(c)){
 		return true;
@@ -104,4 +104,56 @@ std::string WordCount::makeValidWord(std::string word) {
 		vWord.pop_back();
 	}
 	return vWord;
+}
+
+void WordCount::dumpWordsSortedByWord(std::ostream &out) const {
+	std::vector<std::pair<std::string, int>> allWords;
+	for(size_t i = 0; i < CAPACITY; i++){
+		for(size_t j = 0; j < table[i].size(); j++){
+				allWords.push_back(table[i][j]);
+		}
+	}
+	std::sort(allWords.begin(), allWords.end(),
+		[](const std::pair<std::string, int> &a, const std::pair<std::string, int> &b){
+			return a.first > b.first;
+	});
+	
+	for(int i = 0; i < allWords.size(); i++){
+		out << allWords[i].first << "," << allWords[i].second << "\n";
+	}
+}
+
+void WordCount::dumpWordsSortedByOccurence(std::ostream &out) const {
+	std::vector<std::pair<std::string, int>> allWords;
+	for(size_t i = 0; i < CAPACITY; i++){
+		for(size_t j = 0; j < table[i].size(); j++){
+				allWords.push_back(table[i][j]);
+		}
+	}
+	std::sort(allWords.begin(), allWords.end(),
+		[](const std::pair<std::string, int> &a, const std::pair<std::string, int> &b){
+			if(a.second == b.second) return a.first < b.first;
+			
+			return a.second < b.second;
+	});
+	
+	for(int i = 0; i < allWords.size(); i++){
+		out << allWords[i].first << "," << allWords[i].second << "\n";
+	}
+}
+
+void WordCount::addAllWords(std::string text) {
+	int i = 0;
+	std::string word = "";
+	while(i < text.length()){
+		if(text[i] == ' ' || text[i] == '\n' || text[i] == '\t'){
+			incrWordCount(word);
+			word.clear();
+		}
+		else{
+			word += text[i];
+		}
+		i++;
+	}
+	incrWordCount(word);
 }

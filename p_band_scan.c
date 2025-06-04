@@ -7,6 +7,9 @@
 #include "signal.h"
 #include "timing.h"
 #include <pthread.h>
+#include <sched.h>
+#include <unistd.h>
+ 
 
 pthread_mutex_t lock;
 #define MAXWIDTH 40
@@ -108,7 +111,7 @@ void * thread_func(void* args){
 
 }
 
-int analyze_signal(signal* sig, int filter_order, int num_bands, int num_threads) {
+int analyze_signal(signal* sig, int filter_order, int num_bands, int num_threads, int num_proc){
 
   pthread_t *thread_array = malloc(num_threads * sizeof(pthread_t));
   struct t_arg *thread_args = malloc(num_threads * sizeof(struct t_arg));
@@ -171,6 +174,11 @@ int analyze_signal(signal* sig, int filter_order, int num_bands, int num_threads
     thread_args[i].band_power = band_power;
     thread_args[i].avg_band_power = avg_band_power;
     pthread_create(&thread_array[i], NULL, thread_func, &thread_args[i]);
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(i % num_proc, &cpuset);
+    pthread_setaffinity_np(thread_array[i], sizeof(cpu_set_t), &cpuset);
+
   }
 
 
@@ -199,7 +207,7 @@ int main(int argc, char* argv[]) {
   int filter_order = atoi(argv[4]);
   int num_bands    = atoi(argv[5]);
   int num_threads = atoi(argv[6]);
-  //int num_proc   = atoi(argv[7]);
+  int num_proc   = atoi(argv[7]);
 
   assert(Fs > 0.0);
   assert(filter_order > 0 && !(filter_order & 0x1));
@@ -244,7 +252,7 @@ bands:    %d\n",
 
   sig->Fs = Fs;
 
-  if (analyze_signal(sig, filter_order, num_bands, num_threads)) {
+  if (analyze_signal(sig, filter_order, num_bands, num_threads, num_proc)) {
     printf("POSSIBLE ALIENS %lf-%lf HZ (CENTER %lf HZ)\n", lbg, ubg, (ubg + lbg) / 2.0);
   } else {
     printf("no aliens\n");

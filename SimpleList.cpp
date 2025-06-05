@@ -1,16 +1,33 @@
 //SimpleList.cpp to be completed by the student
 //
 #include "SimpleList.h"
+#include <type_traits>
 template <class T>
 SimpleList<T>::SimpleList(){
     numElements = 0;
     elements = new T[CAPACITY];
 }
 
+template<class T>
+void destroy(T& element){
+
+}
+
+template<class T>
+void destroy(T* element){
+    delete element;
+}
+
 template <class T>
 SimpleList<T>::~SimpleList(){
+    if(std::is_pointer<T>::value){
+        for(int i = 0; i < numElements; i++){
+            destroy(elements[i]);
+        }
+    }
     delete[] elements;
 }
+
 
 template <class T>
 //T at(int index) const throw (InvalidIndexException);
@@ -67,6 +84,10 @@ void SimpleList<T>::remove(int index){
     }
     if(!(index < numElements)){
         throw InvalidIndexException();
+    }
+
+    if(std::is_pointer<T>::value){
+        destroy(elements[index]);
     }
 
     if(index == (numElements-1)){
